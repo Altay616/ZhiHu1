@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>最新动态展示</title>
+<link href="css/content.css" th:href="@{/css/content.css}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.css}">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+</style>
+<script type="text/javascript">
+	$(function() {
+	 	$(".content").each(function() {
+
+			var targetEle = $(this).find(".con").first();
+			var btnCtrl = $(this).find(".more").last();
+			var strAll = targetEle.text();
+			var contenticon = $(this).find(".more").prev();
+			var objlike = $(this).find(".like").last();
+			var objkeep = $(this).find(".keep").last();
+			var objgoodclick = $(this).find(".c_good").last();
+			var objgood = $(this).find(".good").last();
+			var objgoodnum = $(this).find(".goodnum").last();
+			var objcanclegood = $(this).find(".cancel_good");
+			if (strAll.length > 200) {
+				// alert(btnCtrl.text());
+				//默认只显示200个字。超出可展开，不够则全部显示
+				const sonStr = strAll.substr(0, 200);
+				targetEle.text(sonStr)
+				btnCtrl.click(function() {
+					if (btnCtrl.text().substr(0, 5) == "展开") {
+						targetEle.text(strAll);
+						btnCtrl.text("关闭");
+						contenticon.attr('class', 'fa fa-hand-o-up')
+						//alert(btnCtrl.text());
+					} else {
+						targetEle.text(sonStr)
+						btnCtrl.text("展开");
+						contenticon.attr('class', 'fa fa-hand-o-down');
+					}
+				});
+
+			} else {
+				btnCtrl.text("全部内容");
+				contenticon.attr('class', ' ');
+			}
+			objlike.click(function() {
+				if (objlike.text().substr(0, 5) == "喜欢") {
+
+					objlike.html("取消喜欢");
+
+				} else if (objlike.text().substr(0, 5) == "取消喜欢") {
+					objlike.html("喜欢");
+
+				}
+
+			});
+			objkeep.click(function() {
+				if (objkeep.text().substr(0, 5) == "收藏") {
+
+					objkeep.html("已收藏");
+				} else if (objkeep.text().substr(0, 5) == "已收藏") {
+					objkeep.html("收藏");
+				}
+
+			});
+			objgoodclick.click(function() {
+				if (objgood.text().substr(0, 5) == "点赞") {
+					//alert(12)
+				/* 	objgoodnum.text((parseInt(objgoodnum.text()) + 1));
+					objgood.html("取消"); */
+					var goodnum=Number.parseInt(objgoodnum.text())+1;
+					var id=$(this).parent().next().next().next().val();
+					objgoodnum.text((parseInt(objgoodnum.text()) + 1));
+					objgood.html("取消");
+					$.ajax({
+						url:"essay/addGood",
+						type : 'GET',
+						data : {
+							"essayid" : id,
+							"goodnum":goodnum
+						},
+						success : function(msg) {
+							if (msg) {
+								alert("success");
+							}
+						}
+					});
+				} else if (objgood.text() == "取消") {
+					var goodnum=Number.parseInt(objgoodnum.text())-1;
+					var id=$(this).parent().next().next().next().val();
+					objgoodnum.text((parseInt(objgoodnum.text()) - 1));
+					objgood.html("点赞");
+				 	$.ajax({
+						url:"essay/cancelGood",
+						type : 'GET',
+						data : {
+							"essayid" : id,
+							"goodnum":goodnum
+						},
+						success : function(msg) {
+							if (msg) {
+								alert("success");
+							}
+						}
+					});
+				}
+
+			});
+			objcanclegood.click(function() {
+				objgoodnum.text((parseInt(objgoodnum.text()) - 1));
+				objgood.html("点赞");
+
+			});
+
+		});
+ 
+		 $('.comment').each(function(i, m, n) {
+			$(this).click(
+				function() {
+					var id = $(this).next().val();
+
+					$.ajax({
+						url : "queryCommentByid",
+						type : 'GET',
+						data : {
+							"id" : id
+						},
+						success : function(
+								msg) {
+							if (msg) {
+								window.parent.main.location.href = "/comment?essayid="+ id
+							}
+						}
+					});
+				})
+		})
+		 
+	});
+</script>
+<body>
+	<div class="container">
+		<div class="title">
+			<img src="images/book.png"> <span>最新动态</span>
+		</div>
+		<div class="contents">
+			
+			<div class="content" th:each="essay,id : ${session.essays}"> 
+				<h3 style="padding: 10px 0;" ><a th:text="${essay.title}" style="cursor: pointer"  th:href="@{'wenda?id='+${essay.id}}" target="_blank"></a></h3>
+				 
+				<div class="au_info">
+					<p>
+						<img src="images/person.jpg">
+					</p>
+					<p>
+						<span class="a_name" th:text="${essay.user.username}"></span>,<span
+							style="color: #646464; margin-left: 5px;" th:text="${essay.date}"></span>
+					</p>
+				</div>
+				<p class="good">
+					<span th:text="${essay.goodnum}" class="goodnum"></span>人赞同了该回答
+				</p>
+				<div style="padding: 0 10px;">
+					<article class="con" th:text="${essay.context}"></article>
+				</div>
+				<div class="oprator">
+					<p class="click_good">
+						<a href="#" class="c_good"><i class="fa fa-heartbeat"> <span
+								class="good">点赞</span></i></a>
+					</p>
+					<p class="cancel_good">
+						<a href="#"><i class="fa fa-sort-desc"></i></a>
+					</p>
+					<p class="comment">
+						<i class="fa fa-comment"></i>评论
+					</p>
+					<input type="hidden" name="id" id="id" th:value="${essay.id}">
+					<ul>
+						<li><a href=""><i class="fa fa-paper-plane"></i>分享</a></li>
+						<li><a href="#"><i class="fa fa-star"></i> <span
+								class="keep">收藏</span></a></li>
+						<li><a href="#"><i class="fa fa-heart-o"></i> <span
+								class="like">喜欢</span></a></li>
+						<li><a href="#"> <i class="fa fa-hand-o-down"></i> <span
+								class="more">展开</span></a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

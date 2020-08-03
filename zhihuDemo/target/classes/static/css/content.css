@@ -1,0 +1,121 @@
+*{
+	margin:0;
+	padding:0;
+}
+.container{
+	width: 100%;
+	min-width:1500px;
+	overflow:hidden;
+	background:#ffffff;
+ 
+}
+.title{
+	height: 40px;
+	width: 100%;
+	display: flex;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 10px;
+	border-bottom:1px solid #f0f2f7;
+}
+.title img{
+	width: 30px;
+	height:30px;
+	line-height: 40px;
+	vertical-align: middle;
+}
+.title span{
+	line-height: 40px;
+}
+.contents{
+	width: 100%;
+	height: auto;
+}
+.contents .content{
+	border-bottom:1px solid #f0f2f7;
+	width: 98%;
+	height: auto;
+	padding:10px;
+}
+.goodnum{
+    color: #0084ff;
+}
+.more{
+        color:#0084ff;
+    }
+.content .au_info{
+	height: 50px;
+display: flex;
+	vertical-align: middle;
+}
+.au_info img{
+	width: 35px;
+	height: 30px;
+	border-radius: 3px;
+	vertical-align: middle;
+}
+.au_info p{
+line-height: 50px;
+margin-right: 10px;
+}
+.a_name{
+	font-weight: bold;
+}
+.good{
+	color:#8590a6;
+	 font-size: 14px;
+	text-align:left;
+	cursor: pointer;
+}
+.oprator{
+    display: flex;
+    padding: 10px;
+}
+a{
+    text-decoration: none;
+    color:#1a1a1a;
+}
+    .oprator ul{
+        list-style: none;
+        display: flex;
+    }
+    .oprator .cancel_good, .oprator .click_good{
+        width: 50px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
+        margin-left: 10px;
+        background-color: rgba(0,132,255,.1);
+    }
+    .oprator .click_good a,.oprator .cancel_good a{
+        color:  #0084ff;
+    }
+    .oprator .click_good{
+
+        padding: 0 15px;
+    }
+    .oprator .cancel_good{
+        width: 40px;
+        text-align: center;
+    }
+    .oprator .comment{
+        margin-left: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    ul li a,.oprator .comment{
+        color: #8590a6;
+        margin-left: 30px;
+        font-size: 15px;line-height: 30px;
+    }
+ul li a:hover,.oprator .comment:hover{
+    color:#0084ff;
+}
+.goodnum{
+    color: #0084ff;
+}
+.more{
+        color:#0084ff;
+    }
+

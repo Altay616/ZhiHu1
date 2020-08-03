@@ -1,0 +1,158 @@
+ 
+body{
+	padding:0px;
+	margin:0px;
+}
+.div1 {
+	margin: 0 auto;
+	width: 536px; 
+	min-height: 400px;
+	background: white;
+	border-radius: 10px;
+}
+
+.div2 {
+	position: relative; padding-top : 30px;
+	margin: 0 auto;
+	width: 488px;
+	padding-top: 30px;
+}
+
+.headImg {
+	height: 50px;
+	width: 50px;
+}
+
+.textArea1 {
+	height: 45px;
+	width: 405px;
+	font-size: 18px;
+	margin-left: 20px;
+	font-weight: bold;
+	border: none;
+	resize: none;
+	color: #1a1a1a
+}
+
+.textArea1:focus {
+	border: none;
+	outline: none;
+}
+
+.div3 {
+	margin: 0 auto;
+    margin-top: 20px;
+    padding-top:10px;
+    padding-left: 10px;
+	width: 486px;
+	border: solid 1px #f0f0f0;
+	min-height: 90px;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.div3:focus {
+    outline: none; 
+   
+} 
+.topic {
+	margin: 0 auto;
+	width: 480px;
+	height: 30px;
+	color: blue;
+}
+
+ul {
+	padding: 0px;
+	margin-top: 20px;
+	float: left;
+}
+
+.topic li {
+	float: left;
+	list-style: none;
+	height: 30px;
+	line-height: 30px; 
+	font-size: 14px;
+	padding:0 20px;
+	background:#e5f2ff;
+	border-radius: 22px;
+	cursor: pointer;
+}
+
+.topic #addImg {
+	position: absolute; 
+	height: 14px;
+	width: 14PX;
+	margin-top: 8px;
+}
+.deleteImg{ 
+    height: 12px;
+    width: 12PX;
+  	padding-top: 10px;
+	margin-left: 6px;
+   
+
+
+}
+.tail {
+	width: 480px;
+	height: 40px;
+ 
+	margin: 0 auto;
+	margin-top: 91px;
+	line-height: 40px;
+}
+
+button {
+	position: relative;
+	height: 35px;
+	width: 110px;
+	left: 58%;
+	top: -1px; 
+	background:#0084ff;
+	box-shadow: 0;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	color: white;
+	font-size: 15px;
+	border-radius: 5px;  
+}
+#inputsearch{
+  width:150px;
+  height:25px;
+  border:none;
+  border-radius: 22px;
+  outline: none; 
+  margin-left:10px;
+}
+ 
+.search img{
+	width: 16px;
+	height: 16px; 
+	margin-top:8px;
+} 
+.innerUl{
+	padding:0px;
+	margin-left: 200px;
+	margin-top: -200px; 
+	max-height:150px;
+	background: white;
+	list-style: none;
+	display: none;
+	padding-top:5px;
+
+}
+
+.innerUl li{ 
+	float: none;
+	background:white;
+	padding-left: 15px;
+	padding-right: 10px;
+	border-radius: 0;
+	height:30px; 
+	line-height: 30px;;
+	white-space: nowrap; 
+	
+}

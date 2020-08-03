@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.zhihu.mapper.EssayMapper">
+  <resultMap id="BaseResultMap" type="com.team.zhihu.bean.Essay">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="goodnum" jdbcType="INTEGER" property="goodnum" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="topictype" jdbcType="INTEGER" property="topictype" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="date" jdbcType="VARCHAR" property="date" />
+  </resultMap>
+  <!-- user,essay -->
+  <resultMap id="WitdEssayResultMap"
+		type="com.team.zhihu.bean.Essay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="context" jdbcType="LONGVARCHAR" property="context" />
+		<result column="goodnum" jdbcType="INTEGER" property="goodnum" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="topictype" jdbcType="INTEGER" property="topictype"/>
+		<result column="userid" jdbcType="INTEGER" property="userid" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<!-- 联合查询一对一时，对象成员使用 association映射 -->
+		<association property="user"
+			javaType="com.team.zhihu.bean.User">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+		</association>
+		<association property="topic"
+			javaType="com.team.zhihu.bean.Topic">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="typename" jdbcType="VARCHAR" property="typename" />
+		</association>
+	</resultMap>
+	
+	 <resultMap id="WithUSerResultMap"
+		type="com.team.zhihu.bean.Essay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="context" jdbcType="LONGVARCHAR" property="context" />
+		<result column="goodnum" jdbcType="INTEGER" property="goodnum" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="topictype" jdbcType="INTEGER" property="topictype"/>
+		<result column="userid" jdbcType="INTEGER" property="userid" />
+		<result column="date" jdbcType="VARCHAR" property="date" />
+		<!-- 联合查询一对一时，对象成员使用 association映射 -->
+		<association property="user"
+			javaType="com.team.zhihu.bean.User">
+			<id column="id" jdbcType="INTEGER" property="id" />
+			<result column="username" jdbcType="VARCHAR" property="username" />
+			<result column="password" jdbcType="VARCHAR" property="password" />
+			<result column="phonenumber" jdbcType="VARCHAR" property="phonenumber" />
+		</association>
+	</resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, context, goodnum, type, topictype, userid, date
+  </sql>
+   <sql id="WithEssay_Column_List">
+		e.id, e.title, e.context, e.goodnum,e.type, e.topictype,e.userid,e.date,
+		u.id,
+		u.username,
+		u.password,
+		u.phonenumber,
+		t.id,t.typename
+	</sql> 
+	
+	   <sql id="WithUser_Column_List">
+		e.id, e.title, e.context, e.goodnum,e.type, e.topictype,e.userid,e.date,
+		u.id,
+		u.username,
+		u.password,
+		u.phonenumber
+	</sql>
+  <select id="selectByExample" parameterType="com.team.zhihu.bean.EssayExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from essay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="WithUSerResultMap">
+    select 
+    <include refid="WithUser_Column_List" />
+    from essay e, user u
+    where e.id = #{id,jdbcType=INTEGER} and e.userid = u.id
+  </select>
+  <!--查询所有文章  -->
+  <select id="selectByEtype" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from essay order by id desc
+  </select>
+  <!-- 模糊查询 -->
+  <select id="selectByKeyword" parameterType="java.lang.String" resultMap="WitdEssayResultMap">
+  	 select 
+    <include refid="WithEssay_Column_List" />
+    from essay e left join user u on e.userid = u.id
+     left join topic t on e.topictype=t.id
+    where title like '%${value}%' order by e.id desc
+  </select>
+  <!-- 联合查询 user,essay -->
+   <select id="selectEssayWithUname"
+		parameterType="java.lang.Integer" resultMap="WitdEssayResultMap">
+		select
+		<include refid="WithEssay_Column_List" />
+		 from essay e left join user u on e.userid = u.id
+		 left join topic t on e.topictype=t.id
+		 order by e.id desc
+  </select> 
+  
+  <!-- 更新文章点赞数 -->
+  <update id="updateGoodNumByid" parameterType="java.lang.Integer">
+ 	 update essay set  goodnum = #{goodnum,jdbcType=INTEGER} where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from essay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.team.zhihu.bean.EssayExample">
+    delete from essay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.team.zhihu.bean.Essay">
+    insert into essay (id, title, context, 
+      goodnum, type, topictype, 
+      userid, date)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{context,jdbcType=VARCHAR}, 
+      #{goodnum,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{topictype,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{date,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.zhihu.bean.Essay">
+    insert into essay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="goodnum != null">
+        goodnum,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="topictype != null">
+        topictype,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="goodnum != null">
+        #{goodnum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="topictype != null">
+        #{topictype,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.team.zhihu.bean.EssayExample" resultType="java.lang.Long">
+    select count(*) from essay
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update essay
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodnum != null">
+        goodnum = #{record.goodnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.topictype != null">
+        topictype = #{record.topictype,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update essay
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      context = #{record.context,jdbcType=VARCHAR},
+      goodnum = #{record.goodnum,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      topictype = #{record.topictype,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.zhihu.bean.Essay">
+    update essay
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="goodnum != null">
+        goodnum = #{goodnum,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="topictype != null">
+        topictype = #{topictype,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.zhihu.bean.Essay">
+    update essay
+    set title = #{title,jdbcType=VARCHAR},
+      context = #{context,jdbcType=VARCHAR},
+      goodnum = #{goodnum,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      topictype = #{topictype,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

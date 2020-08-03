@@ -1,0 +1,199 @@
+body{
+    padding:0px;
+    margin:0px; 
+    background-color: #f6f6f6;
+    min-width: 1500px;
+}
+
+
+.div1{
+    margin:0 auto;
+    padding:0px; 
+    padding-top:20px;
+    padding-bottom: 20px;;
+    height:auto;
+    width:100%;
+    background:white;
+    overflow: hidden;
+    
+}
+.topic{
+    width:70%;
+    margin:0 auto;
+ }
+.topic .ul1{
+    padding:0px;
+    margin:0px;
+
+}
+.topic .ul2{
+    padding:0px;
+    margin:0px;
+    margin-top:23px;
+}
+.topic .ul1 li{ 
+    float: left;
+    color:#409fff;
+    border-radius: 13px;
+    list-style: none;
+    text-decoration: none;
+    background-color: #e5f2ff;
+    margin-left: 20px;
+    padding:2px 10px;
+
+}
+.topic h1{
+    margin-top: 25px;
+    margin-bottom: 4px;
+    font-size: 22px;
+    font-weight: 600;
+    font-synthesis: style;
+    line-height: 20px;
+    color: #1a1a1a;
+    margin-left: 20px;
+}
+.topic .ul2 li{
+    float: left;
+    list-style: none;
+    margin-left: 20px;
+}
+.topic .ul2 button{ 
+    height:35px;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;;
+    border-radius: 3px;
+}
+.follow{
+    width:100px;
+    background:#0084ff;
+    color:white;
+    border:none;
+}
+.write{
+    width:100px;
+    background-color: white;
+    color:#3fa2ff;
+    border:solid 1px #3fa2ff;
+    
+}
+.invite{
+    width:100px;
+    background:white;
+    color:#9090b9;
+    border:solid 1px #9090b9;
+}
+.good,.comment,.share,.other{
+    background:white;
+    border:none;
+    color:#9090b9;
+}
+.reply{
+    margin:0;
+    padding:0;
+}
+.reply li{
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding:0px;
+    line-height: 40px;;
+}
+
+.reply img{
+    height:50px;
+    width:50px;
+    padding: 0;
+    margin: 0;
+
+}
+.optionof_you{
+    margin:0px;
+    padding:0px;
+    background-color: white;;
+    
+
+}
+.optionof_you li{
+    float: left;
+    list-style: none; 
+    background-color: white;;
+    margin-left: 15px;;
+    
+}
+.optionof_you li button{
+    outline:none;
+    border:none;
+    cursor: pointer;
+}
+.optionof_you li:focus{
+    outline: none;
+    border:none;
+}
+.optionof_you .good button{
+    width:110px;
+    height:35px;
+    border:none;
+    background:#e5f2ff;
+    color:#0084ff;
+   
+}
+.optionof_you .notgood button{
+    background:#e5f2ff;
+    height:35px;
+    color:#0084ff;
+}
+.optionof_you .comment button, .optionof_you .share button, .optionof_you .collect button{
+    color:#9090a6;
+    background-color: white;;
+}
+.optionof_you .like button{
+    color:#9090a6;
+    background-color: white;;
+}
+.answer{
+    position: absolute;
+    padding:10px;
+    width:500px;
+    height:300px;
+    margin-top: 200px;
+    margin-left: 480px;;
+    background-color: white;
+    opacity: 1.0;
+    border-radius: 20px;;
+}
+textArea {
+    margin-left: 4px;
+    padding:20px;
+    width:90%;
+    height:180px ; 
+	border: none;
+	resize: none;
+    color: #1a1a1a;
+    border:1px green solid;
+    border-radius: 20px;;
+}
+
+textArea:focus {
+    border:1px green solid;
+	outline: none;
+}
+ .answer button {  
+     margin-top:30px;
+	height: 35px;
+	width: 110px; 
+	background: #0084ff;
+	box-shadow: 0;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	color: white;
+	font-size: 15px;
+	border-radius: 5px;
+}
+.cancel{
+    margin-left:74px;
+}
+.ensure{
+    margin-left: 130px;;
+}

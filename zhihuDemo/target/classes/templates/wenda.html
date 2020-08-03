@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script> 
+    <script src="https://bitstorm.org/jquery/color-animation/jquery.animate-colors-min.js"></script>
+    <script src="js/wenda.js" ></script>
+    <link href="css/wenda.css" rel="stylesheet">
+    <title>问答</title>  
+</head>
+<body> 
+	<div style="display: none" class="essayid" th:text="${myessay.id}"></div>
+	<!-- <div style="display: none" class="userid"  th:text="${session.curUser.username}"></div> -->
+    <div class="answerParent" style="position: fixed;;width:100%;height:1500px;background: rgba(0,0,0,0.6);display: none;">
+        <div class="answer">
+           <textarea placeholder="请输入你的见解"></textarea>
+           <button class="cancel">取消</button>
+           <button class="ensure">确定</button>
+        </div>
+    </div>
+        <div class="div1">
+            <div class="topic">
+                <div class="content">
+                <ul class="ul1">
+                    <li th:text="${topicName.typename}">河南省</li> 
+                </ul><br> 
+                <h1 th:text=${myessay.title}>关于河南你想知道什么</h1>
+                <p style="margin-left: 20px;" th:text="${myessay.context}">时发生发射点撒旦发射点收盘大幅攀升属东非？</p>
+                <ul class="ul2">
+                    <li><button class="follow">关注问题</button></li>
+                    <li><button class="write">写回答</button></li>
+                    <li><button class="invite">邀请回答</button></li>
+                    <li><button class="good">好问题 <span th:text="${myessay.goodnum}"><span></button></li>
+                    <li><button class="comment">评论 <span th:text="${commnentUsers.size()}">1560</span></button></li>
+                    <li><button class="share">分享</button></li>
+                    <li><button class="other">其他</button></li>
+                </ul>
+             </div>
+             <!-- <div class="liulan" style="height:1800px">
+
+             </div> -->
+            </div>
+        </div> 
+        <div class="div2" style="margin-top:15px">
+            <div style="width:70%;;display: flex;margin:0 auto;text-align: center;">
+
+                <div style="width:72%;">
+                    <!-- <div style="width:100%;height:50px;background:white;text-align: center;line-height: 50px;">查看全部 2258个 回答</div> -->
+                    <div style="margin-top:15px;background:white;width:100%;">
+                        <ul class="reply"> 
+                            <li th:each="commnentUser,count:${commnentUsers}">
+                                <div class="imgIDV" style="height:80px;width:100%;line-height: 50px;padding-left: 20px;padding-top:15px;">
+                                    <img src="images/head.jpg" align="top">
+                                    <span style="padding-left:5px;font-weight:600;font-size:15px;" th:text="${commnentUser.user.username}">匿名用户</span><br>
+                                    <span th:text="${commnentUser.date}" style="color:#bd9abf" class='time'>2017-7-31</span>
+                                </div>
+                                <div style="width:95%;padding-left: 20px;padding-top:15px;padding-right: 15px;" th:text="${commnentUser.context}">
+                                    这货到付款搞定了发给对方国家的法律规定独立开发给了对方见了到访的风格得分管理发达国家独立国家的法律豆腐干地方了
+                                    管道风机开关打开翻盖大幅高开的发酵过的飞快 发给你看的附近的反馈给的反馈给的快递费看对方快递费得分的反馈
+                                </div>
+                                <div style="width:100%;height:80px;background-color: white;">
+                                    <ul class="optionof_you">
+                                        <li class="good"><button th:id="goodbutton+(${count.index}+1)">赞同 0</button></li>
+                                        <li class="notgood"><button th:id="notgoodbutton+(${count.index}+1)">不赞同</button></li>
+                                        <li class="comment"><button th:id="commentbutton+(${count.index}+1)">评论</button></li>
+                                        <li class="share"><button   th:id="sharebutton+(${count.index}+1)">分享</button></li>
+                                        <li class="collect"><button th:id="collectbutton+(${count.index}+1)">收藏</button></li>
+                                        <li class="like"><button    th:id="likebutton+(${count.index}+1)">喜欢</button></li>
+                                    </ul>
+                                </div>
+                            </li>   
+                        </ul>
+                    
+                    </div>
+                    
+                    
+                    <div style="width:100%;height:300px;margin-top:15px;background: white;" class="firstAnswerDiv" th:if="${commnentUsers.size()==0}">
+                    	<img src="images/writeComment.svg" style="width:80px;height:80px;margin-top:100px;">
+                    	<p>暂时还没有回答开始写<span style="color:#0077e6;cursor: pointer;"  class="firstAnswer">第一个回答</span></p>
+                    </div> 
+                    
+                </div>
+                <div style="width:25%; height:400px;margin-left: 15px;">
+                    <div style="width:100%;height:50px;line-height: 50px; text-align: left;background: white;font-size: 15px;font-weight: 600;padding:0 20px;;">关于作者</div>
+                    <div style="width:100%;height:50px;text-align: left;line-height: 60px;background: white;margin-top:2px;padding: 16px 20px;">
+                        <img src="images/head.jpg" style="width:60px;height:60px;border-radius: 5px;;" align="top">
+                        <span style="font-size:20px;font-weight: 600;"th:text="${user.username}">阿不悔</span> 
+                    </div>
+                    <div>
+
+                    </div>
+                 
+                </div>
+            </div> 
+        </div> 
+</body>
+</html>

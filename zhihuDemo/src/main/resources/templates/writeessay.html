@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文章</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="css/writeessay.css" th:href="@{/css/writeessay.css}" rel="stylesheet">
+</head>
+      
+ <script>
+  $(function () {
+      $("#content").blur(function(){
+          var t1=document.getElementById("title").value;
+          var t2=document.getElementById("content").value;
+          var button=document.getElementById("publishbtn");
+          if(t1!=''&&t2!='')
+          {
+              button.style.display="block";
+          }
+      })
+    
+  })
+   function publishBtn(){
+    	  //document.getElementById("publishForm").submit();//js原生方式表单提交
+    	    $("#publishForm").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
+      }
+</script>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/images/logo.jpg">
+            </div>
+            <div class="nav">
+                <ul class="nav-left" style="list-style:none;">
+                    <li><a href="/essay/index"  >首页</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="button-publish">
+            <Button class="publish" type="button" id="publishbtn"  onclick="publishBtn();" style="height:40px;border:none;border-radius:5px;font-size:16px;color:#ffffff;">发布</Button>
+        </div>
+    </div>
+    <form id="publishForm" action="/essay/publish" method="post">
+    <div class="essay">
+        <div class="title-tip">
+         <h1>标题</h1>
+        </div>
+        <div class="essay-title">
+            <input class="essay-title-info "  placeholder="请输入标题(不超过35个字符)" id="title" name="title">
+        </div>
+        <div class="content-tip">
+            <h1>内容</h1>
+        </div>
+
+        <div class="essay-content">
+            <textarea class="essay-content-info" placeholder="请输入内容" id="content" name="content">
+            </textarea>
+        </div>
+    </div>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态展示</title>
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .container{
+        width: 100%;
+        margin: 0 auto;
+        height:100%;
+    }
+    .contents{
+        width: 100%;
+        height: auto;
+    }
+    .contents .content{
+        border-bottom:1px solid #f0f2f7;
+        width: 98%;
+        height: auto;
+        padding:0 10px;
+    }
+    .content .au_info{
+        height: 50px;
+        display: flex;
+        vertical-align: middle;
+    }
+    .au_info img{
+        width: 35px;
+        height: 30px;
+        border-radius: 3px;
+        vertical-align: middle;
+    }
+    .desc img{
+        width: 35px;
+        height: 30px;
+        border-radius: 3px;
+        vertical-align: middle;
+    }
+    .au_info p{
+        line-height: 50px;
+        margin-right: 10px;
+    }
+    .a_name{
+        font-weight: bold;
+    }
+    .good{
+        color:#8590a6;
+        font-size: 14px;
+        text-align:left;
+        cursor: pointer;
+        line-height: 40px;
+        margin-bottom: 15px;
+    }
+    .operator{
+        display: flex;
+        padding: 10px;
+    }
+    a{
+        text-decoration: none;
+        color:#428bca;
+    }
+    .operator ul{
+        list-style: none;
+        display: flex;
+    }
+    .operator .cancel_good, .operator .click_good{
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 5px;
+        margin-left: 10px;
+        background-color: rgba(0,132,255,.1);
+    }
+    .operator .click_good a,.operator .cancel_good a{
+        color:  #0084ff;
+    }
+    .operator .click_good{
+
+        padding: 0 15px;
+    }
+    .operator .cancel_good{
+        width: 40px;
+        text-align: center;
+    }
+    .operator .commentNumber{
+        margin-left: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    ul li a,.operator .comment{
+        color: #8590a6;
+        margin-left: 50px;
+        font-size: 15px;line-height: 30px;
+    }
+    ul li a:hover,.operator .comment:hover{
+        color:#0084ff;
+    }
+    .desc{
+        padding-left: 15px;
+        color: #978f95;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-bottom:1px solid #f0f2f7;
+    }
+    .date{
+        float: right;
+        padding-right: 40px;
+    }
+    #userList{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom:1px solid #f0f2f7;
+    }
+
+    #status{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom:1px solid #f0f2f7;
+    }
+    .commentcontent{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    .reply{
+        padding-left: 50px;
+    }
+    .replycontent{
+        padding-left: 40px;
+        padding-right: 35px;
+    }
+    .doreply{
+        padding-left: 40px;
+    }
+    input{
+        margin-left: 40px;
+        height: 35px;
+        width: 80%;
+    }
+    .replymessage{
+        display: none;
+    }
+</style>
+<script>
+    $(function () {
+        $(".c_good").click(function () {
+
+        })
+
+        $("#userList>li").each(function () {
+            $(this).click(function () {
+                $(this).addClass("active");
+                $(this).siblings("li").removeClass("active");
+            })
+        })
+    })
+
+
+</script>
+<body>
+<div  class="container">
+
+    <ul id="userList" class="nav nav-pills">
+        <li role="presentation" class="active"><a href="#">动态</a></li>
+        <li role="presentation"><a href="#">问答(0)</a></li>
+        <li role="presentation"><a href="#">提问(0)</a></li>
+        <li role="presentation"><a href="#">文章(0)</a></li>
+    </ul>
+		  <p id="status">我的动态</p>
+    <div class="contents" th:each="essay : ${session.goodEssays}">
+      
+        <div class="desc">
+            <span>赞同了回答</span>
+            <span class="date" th:text="${essay.date}">07-28</span>
+        </div>
+
+        <div class="content">
+        	
+            <h4 th:text="${essay.title}">有什么女主是个心机婊的小说</h4>
+            <div class="au_info">
+                <p><img src="images/person.jpg"></p>
+                <p><span class="a_name" th:text="${essay.user.username}">一块铁</span>
+            </div>
+            <div id="box" class="box" style="padding: 0 10px;">
+                <p th:text="${essay.context}">1.强烈推荐三日成晶的小说，女主不仅是个心机婊，而且把男主玩个半死，基本上在她小说下面我就没看见过一个没被虐过的男主，轻则断手断脚，重则精神失常，关键是女主一点也不恋爱脑，男主千方百计隐藏的秘密，很快就会被她看出来，超狠一女的，真的。男主狗的千奇百怪，清新脱俗，女主比他更狗，手段超绝。强烈推荐她的后妈她翻车了和反派穿成虐文女主。2.心机美人，男主是世子，很难动心的那一种，然后女主看上了男主的世子妃之位，就去勾引攻略他。女主真的很擅长攻心，而且收买起男主身边的人，真的是不动声色，让人根本感觉不到。作者说后期女主会翻车，男主会黑化哈哈哈哈。3.满级绿茶穿成小可怜，就是一个擅长攻心的绿茶女主收服她的皇兄皇姐父皇和男主还有顺便和其他绿茶PK的故事，不虐，很好看。4.我穿成了灰姑娘的恶毒继姐。这本强烈推荐，女主我太可了。男主是高高在上的神，非常冷漠淡漠的那种，不攻略他女主就会被男主杀了。于是女主为了让男主爱上她，前期疯狂骗他，后期把他从神坛上拉下来，然后两人相爱相杀，我超可！女主一点也不小白花，反而心机满满，她那个白莲花灰姑娘妹妹根本斗不过她。
+                </p>
+            </div>
+            <div class="operator">
+                <p class="click_good"><a href="" class="c_good"><i class="fa fa-heartbeat">点赞</i></a></p>
+                <p class="cancel_good"><a href=""><i class="fa fa-sort-desc"></i></a></p>
+                <p class="commentNumber"><a href="javascript:void(0)" class="showCommit"><i class="fa fa-comment"></i>[[${essay.commentNumber}]]条评论</a></p>
+                <span th:text="${essay.id}" style="display:none"></span>
+                <ul>
+                    <li><a href=""><i class="fa fa-paper-plane"></i>分享</a></li>
+                    <li><a href=""><i class="fa fa-star"></i> 收藏</a></li>
+                    <li><a href=""><i class="fa fa-heart-o"></i> 喜欢</a></li>
+                </ul>
+            </div>
+           <div  class="currentcomment">
+             <!-- <div class="comment">
+                <div class="desc">
+                   <img src="images/person.jpg">
+                   <span class="getData" style="display: none">3,0</span>
+                    <span class="username">username</span>
+                    <span class="date">07-28</span>
+                    <p class="commentcontent">你说的这些我们公司都具备[飙泪笑]，工资相比同行业不算高所以留不住人，走的人多招的人也多，我们也是到点就走，平时工作日如果自己的工作做完了，你可以玩一天，领导不会过问，说实话我们公司适合养老</p>                   
+                 	<p class="doreply"><a class="replyhref"><i class="fa fa-comment"></i>回复</a></p>
+                     <div class="replymessage">
+                         <input type="text"   placeholder="回复内容">
+                         <button  type="button" class="btn btn-primary userreply">回复</button>
+                   </div>
+               </div>
+                <div class="reply">
+                    <div class="desc">
+                        <img src="images/person.jpg">
+                        <span class="getData" style="display: none">3,1</span>
+                        <span class="">username回复username1</span>
+                        <span class="date"username>07-28</span>
+                        <p class="replycontent">你说的这些我们公司都具备[飙泪笑]，工资相比同行业不算高所以留不住人，走的人多招的人也多，我们也是到点就走，平时工作
+                    <p class="doreply"><a class="replyhref"><i class="fa fa-comment"></i>回复</a></p>
+                     <div class="replymessage">
+                         <input type="text"   placeholder="回复内容">
+                         <button  type="button" class="btn btn-primary userreply">回复</button>
+                   </div>
+                    </div>
+                </div> -->
+            </div>
+            
+      </div>
+    </div>
+  
+        <script>   
+		        $(function () {
+		        	
+		        	/* 页面中点击返回的一块内容*/
+ 		          var replyhtml ="";
+	              replyhtml += "<p class='doreply'><a href='javascript:void(0)' class='replyhref'><i class='fa fa-comment'></i>回复</a></p>";
+   	              replyhtml += "<div class='replymessage'>                                                       ";
+   	              replyhtml += "  <input type='text'   placeholder='回复内容'/>                                   ";
+   	              replyhtml += "  <button  type='button' class='btn btn-primary userreply'>回复</button>         ";
+   	              replyhtml += "</div>                                                                           ";
+      
+   	              /* 回复跟取消回复的动效  需要点击俩次 */
+       	          $(".currentcomment").on("click",".replyhref",function(){
+      	        	 $(this).click(function () {
+	                     var replymessage=$(this).parent().next();	                  
+	                     if($(this).text().length==2){
+	                         replymessage.css("display","inline");
+	                         $(this).text("取消回复");	                        	                       
+	                     }else {
+	                         replymessage.css("display","none");
+	                         $(this).text("回复");	                        
+	                     }
+	                 });
+      	        	 return false;
+      	          });
+		             
+   	              //封装 回复页面
+   	              function getShowReplyHtml(rep){
+   	            	    var  showreplyhtml = "";
+ 	        			showreplyhtml +="	<div class='reply'>      ";
+		                showreplyhtml +="     <div class='desc'>   ";
+		                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+		                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+		                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+		                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+		                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+		                showreplyhtml += replyhtml;
+		                showreplyhtml +="      </div>     ";
+		                showreplyhtml +="    </div>         ";
+		                return showreplyhtml;
+   	              }
+   	              
+   				/*  
+   					给动态标签添加事件 usesrply (回复消息的按钮)
+   				*/
+      	          $(".currentcomment").on("click",".userreply",function(){
+      	        	  	/*  获取commenid或者回复id 
+      	        	  			前者data为（commentid，0）
+      	        	  		       前者data为（commentid，1） 
+      	        	  	*/
+      	        	   var data = $(this).parent().parent().find(".getData").text();
+      	        	  	alert(data);
+      	        	  	/*  
+      	        	  		获取输入框的内容
+      	        	  	*/
+      	        	   var input = $(this).parent().find("input");
+      	        	   var text = input.val();
+      	        	   /*  获取当前评论的div*/
+      	        	   var showMycomment = $(this).parents(".comment");
+      	        	   var  showreplyhtml = "";
+      	        	   /*  获取输入框的元素 */
+      	        	   var replymessage = $(this).parent();
+      	        	   /*  当回复的a标签*/
+      	        	   var cancelReply = $(this).parent().parent().find(".replyhref");
+						
+      	        	   //发送ajax请求
+       	        	   $.ajax({
+      	        		 type : "POST",
+      	        		 url  : "/reply/insert",     	   
+      	        		 data : {
+      	        			 			id : data,
+      	        	   					text : text,
+      	        				 },
+      	        		error: function(error){
+      	        			  console.log(error);     	        		   
+      	        		},
+      	        		 success : function(rep) {
+/*       	        		showreplyhtml +="	<div class='reply'>      ";
+			                showreplyhtml +="     <div class='desc'>   ";
+			                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+			                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+			                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+			                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+			                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+			                showreplyhtml += replyhtml;
+			                showreplyhtml +="      </div>     ";
+			                showreplyhtml +="    </div>         "; */
+      	        			showMycomment.append(getShowReplyHtml(rep)); 
+			                
+			                /* 将输入框的内容清空 
+			                	将输入框隐藏
+			                */
+      	        			input.val("");
+      	        			 if(cancelReply.text().length==4){
+      	        				 replymessage.css("display","none");
+    	                         cancelReply.text("回复");	
+      	                    }
+      	        		 }
+      	        	   }) 
+                       return false;
+      	          });
+
+      	            
+   					//点开评论按钮触发事件
+		          $(".showCommit").each(function(){
+		        	 	//获取 评论的个数 num  为0不能展开  
+		        	  var origin = $(this).text();
+		        	  var num =origin.substring(0,1);
+		        	    if(num!=0){		        		   
+		        	  		$(this).click(function(){		
+		        	  			//获取文章id
+				        		var essayid= $(this).parent().next().text();
+		        	  			//评论的容器
+				       			var commentcontext = "";
+		        	  			//类为currcomment的标签
+				       			var currcomment = $(this).parent().parent().next();
+				        		var url="/mine/showcommit?essayid="+essayid+"&"+ new Date().getTime();	
+				        		$.get(url,function(data){				        			
+				        			$.each(data, function(i, comment){				        	
+				        	        	/*  后端传来的ajax数据可以用url  /mine/showcommit?essayid=1 测试*/
+				        	             var showreplyhtml = "";
+				        	        	/*回复不为空  则遍历  */
+				        				if(comment.replyList!=null){
+				        					$.each(comment.replyList,function(i,rep){
+					        	         		if(comment.id==rep.commitid){		
+					        	         			showreplyhtml = getShowReplyHtml(rep);
+/* 									        		showreplyhtml +="	<div class='reply'>      ";
+									                showreplyhtml +="     <div class='desc'>   ";
+									                showreplyhtml +="        <span class='getData' style='display: none'>"+rep.id+",1"+"</span>";
+									                showreplyhtml +="        <img src='/images/person.jpg'>    ";
+									                showreplyhtml +="        <span class=''>"+rep.fromUser.username+"回复"+rep.toUser.username+"</span> ";
+									                showreplyhtml +="         <span class='date'>"+rep.date+"</span>                               ";
+									                showreplyhtml +="        <p class='replycontent'>"+rep.context+"</p>				                ";           
+									                showreplyhtml += replyhtml;
+									                showreplyhtml +="      </div>     ";
+									                showreplyhtml +="    </div>         "; */
+					        	         		}
+					        	         	})
+				        				}				        	                                             
+				        	           commentcontext +=" <div class='comment'>";
+				        	           commentcontext +="    <div class='desc'>";
+				        	           commentcontext +="        <img src='images/person.jpg'>";
+				        	           commentcontext +="        <span class='getData' style='display: none'>"+comment.id+",0"+"</span>";
+				        	           commentcontext +="        <span class='username' >"+comment.user.username+"</span>";
+				        	           commentcontext +="        <span class='date'>"+comment.date+"</span>";
+				        	           commentcontext +="        <p class='commentcontent'>"+comment.context+"</p>";	
+				        	           commentcontext += replyhtml;
+				        	           commentcontext +="    </div>";				        	          
+				        	           commentcontext += showreplyhtml;				        	           
+				        	           commentcontext +="  </div> ";				        	        				        				
+				        			})
+				        			currcomment.html(commentcontext);					   
+				        	    });           
+		        	  		
+			        		return false; 
+			             });      
+		        	  }
+		        });                       
+		        })                        
+        </script>                        
+    
+    <script>
+            function show(){
+                $(".box").each(function () {
+                    var box = $(this)[0];
+                    var text = box.innerHTML;
+                    var newBox = document.createElement("div");
+                    var btn = document.createElement("a");
+                    newBox.innerHTML = text.substring(0,200);
+                    btn.innerHTML = text.length > 200 ? "显示全部" : "";
+                    btn.href = "###";
+                    btn.onclick = function(){
+                        if (btn.innerHTML == "显示全部"){
+                            btn.innerHTML = "收起";
+                            newBox.innerHTML = text;
+                        }else{
+                            btn.innerHTML = "显示全部";
+                            newBox.innerHTML = text.substring(0,200);
+                        }
+                    }
+                    box.innerHTML = "";
+                    box.appendChild(newBox);
+                    box.appendChild(btn);
+                })
+            }
+            show();
+    </script>
+</div>
+</body>
+</html>

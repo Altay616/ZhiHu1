@@ -1,0 +1,104 @@
+   .container{
+        width:100vw;
+        height:100vh;
+    }
+    .header{
+        width: 100%;
+        height:50px;
+
+        background-color: #ffffff;
+    }
+    .header-content{
+        width: 80%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        position: relative;
+    }
+    .header-content .logo{
+        width: 100px;
+        height: 100%;
+
+    }
+    .header-content .logo img{
+        width: 100%;
+        height:100%;
+    }
+    .header-content .nav{
+        display: flex;
+        position: relative;
+    }
+    .essay{
+        width: 80%;
+        height: 500px;
+        margin-top: 50px;
+        margin-left: 11%;
+        position: relative;
+        color: black;
+
+    }
+    .title-tip{
+        width: 80%;
+        height: 30px;
+        margin-top: 10px;
+    }
+    .essay-title{
+        width: 80%;
+        height:70px ;
+        margin:30px;
+        color: #0084ff;
+
+    }
+    .essay-content{
+        width: 80%;
+        height: 350px;
+        margin: 10px;
+    }
+    h1{
+        text-align: left;
+        font-size:larger;
+        color:#1886F0;
+    }
+    .essay-title-info{
+        text-align: left;
+        font-size: medium;
+        border: none;
+        width:80%;
+        hight:50px;
+
+    }
+    .essay-content-info{
+        width: 80%;
+        text-align: left;
+        height: 80%;
+        margin: 0 auto;
+        font-size: large;
+      }
+    .button-publish{
+        width: 60%;
+        height: auto;
+
+
+    }
+    .publish{
+        display: none;
+        width: 70px;
+        float: right;
+        background-color:  #1886F0;
+        color: #cccccc;
+    }
+    .publish:hover{
+        color: #e1f1ff;
+    }
+    a:link{
+        color:  #1886F0;
+       text-decoration: none;
+        list-style: none;
+    }
+    a:hover{
+        color: #000;
+        text-decoration: none;
+    }
+    input,button,a {
+        outline:0 none !important; blr:expression(this.onFocus=this.blur());
+    }

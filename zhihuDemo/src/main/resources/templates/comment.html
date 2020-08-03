@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.css}">
+<link rel="stylesheet"
+	href="css/font-awesome-4.7.0/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome-4.7.0/css/font-awesome.min.css}">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<style>
+#comment {
+	width: 100%;
+	overflow: hidden;
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 2px 2px 3px #0084ff;
+}
+
+#comment .com_num {
+	border: 1px solid #f6f6f6;
+	height: 40px;
+	line-height: 40px;
+	font-size: 15px;
+	color: black;
+	font-weight: bold;
+	padding-left: 20px;
+	background-color: #f6f6f6;
+}
+
+.com_contexts {
+	color: #1a1a1a;
+	padding: 10px;
+}
+
+.com_contexts p img {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+}
+
+.com_contexts .com_context {
+	padding: 15px 10px;
+	border-bottom: #f6f6f6 1px solid;
+}
+.user-reply-show {
+	border-top: #f6f6f6 1px solid;
+	padding-left: 40px;
+}
+
+.com_contexts .com_context article, .user-reply-show article {
+	text-indent: 2em;
+	color: #5e687e;
+	font-size: 14px;
+}
+
+.write {
+	display: flex;
+	border: 1px solid red;
+	border: none;
+	position: relative;
+}
+
+.back i {
+	color: #0084ff;
+	border-radius: 5px;
+	font-size: 25px;
+	padding: 10px 0 0 10px;
+}
+
+.user-reply {
+	width: 100%;
+	height: 50px;
+	border-top: 1px solid #CCCCCC;
+	display: none;
+}
+
+.user_reply .reply-in {
+	float: left;
+	width: 80%;
+	height: 50px;;
+}
+
+.user-reply .reply-in input {
+	width: 78%;
+	height: 30px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.user-reply .reply-buttons {
+	margin-top: -34px;
+	float: right;
+}
+
+.user-reply .reply-buttons .btn-comment {
+	float: right;
+	margin-right: 14px;
+	background-color: #1BB394;
+	height: 30px;
+	border-radius: 5px;
+	border: none;
+	color: white;
+}
+
+.user-reply .reply-buttons .btn-cancel {
+	float: right;
+	margin-right: 10px;
+	background-color: red;
+	color: #ffffff;
+	border: none;
+	height: 30px;
+	border-radius: 5px;
+	height: 30px;
+}
+</style>
+<script>
+	$(function() {
+		//获取传过来的参数文章id
+		var url = location.search; //获取url中"?"符后的字串
+		var essayid;
+		if (url.indexOf("?") != -1) {
+			str = url.substr(1);
+			strs = str.split("=");
+			essayid = strs[1];
+		}
+
+		$("#back").click(function() {
+			history.back(-1);
+		})
+		$("#submit").click(function() {
+			var context = $("#context").val();
+			/* alert(context);
+			alert(essayid); */
+			$.ajax({
+				url : "addComment",
+				type : 'GET',
+				data : {
+					"essayid" : essayid,
+					"context" : context
+				},
+				success : function(msg) {
+					if (msg) {
+						window.parent.main.location.href = "/comment";
+					}
+				}
+			});
+		})
+
+		$('.good').each(function() {
+			$(this).click(function() {
+				var index = $(".reply").index($(this));
+				$(this).eq(index).css("color", "red");
+			})
+		});
+		$('.reply').each(function() {
+			$(this).click(function() {
+				/* var m = document.getElementsByClassName("reply"); */
+				var n = document.getElementsByClassName("user-reply");
+				// 获取回复按钮的索引
+				var index = $(".reply").index($(this));
+				console.log(index);
+				$(".user-reply").eq(index).css("display", "block");
+			});
+
+			$('.btn-cancel').click(function() {
+				//var m = document.getElementsByClassName("btn-reply");
+				var n = document.getElementsByClassName("user-reply");
+				var index = $(".btn-cancel").index($(this));
+				console.log(index);
+				$(".user-reply").eq(index).css("display", "none");
+			});
+		});
+		$('.btn-comment').each(function() {
+			$(this).click(function() {
+				var context = $(this).parent().prev().children().val();
+				var commitid = $(this).prev().val();
+				var touserid = $(this).next().val();
+				$.ajax({
+					url : "toUserComment",
+					type : 'GET',
+					data : {
+						"essayid" : essayid,
+						"commitid" : commitid,
+						"context" : context,
+						"touserid" : touserid
+					},
+					success : function(msg) {
+						if (msg) {
+							$(this).parent().prev().children().val("");
+							window.parent.main.location.href = "/comment";
+						}
+					}
+				})
+			})
+		})
+	})
+</script>
+<body>
+	<div id="comment">
+		<span class="back"><i class="fa fa-reply" id="back"></i></span>   
+		<p class="com_num">
+			<span th:text="${session.listComments.size()}"></span>条评论
+		</p>
+		<div class="com_contexts">
+			<!--用户评论文章  -->
+			<div class="com_context" th:each="comment : ${session.listComments}">
+				<p>
+					<img src="images/person.jpg"><span
+						th:text="${comment.user.username}"></span> <span
+						th:text="${comment.date}"
+						style="margin-left: 400px; font-size: 14px;"></span>
+				</p>
+				<article th:text="${comment.context}" style="padding-bottom: 20px;"></article>
+				<!-- 用户评论用户 -->
+				
+				<div class="user-reply-show" th:each="reply : ${comment.replyList}">
+				<div th:if="${reply.commitid} eq ${comment.id}">
+					<p style="position:relative;">
+						<img src="images/person.jpg"><span
+							th:text="${reply.fromUser.username}"></span> <span
+							style="color: #0084ff; font-size: 16px; magin-left: 15px;">回复</span>
+						<span th:text="${reply.toUser.username}"
+							style="font-weight: bold; margin-left: 15px;"></span> <span
+							th:text="${reply.date}"
+							style="position:absolute;right:10px; font-size: 14px;"></span>
+					</p>
+					<article th:text="${reply.context}"></article>
+				</div>
+				</div>
+				<p style="color: grey; font-size: 14px;">
+					<span style="margin-left: 10px; cursor: pointer;" class="good"><i
+						class="fa fa-thumbs-up"></i>赞</span> <span
+						style="margin-left: 30px; cursor: pointer;" class="reply"><i
+						class="fa  fa-reply"></i>回复</span>
+				</p>
+
+				<div class="user-reply">
+					<div class="reply-in">
+						<input type="text" value="" name="" id="user_comment"
+							placeholder="请输入评论内容" />
+					</div>
+					<div class="reply-buttons">
+						<input type="hidden" name="commentid" id="commentid"
+							th:value="${comment.id}">
+						<button type="button" class="btn btn-primary btn-comment btn-sm">评论</button>
+						<input type="hidden" name="userid" id="userid"
+							th:value="${comment.userid}">
+						<button type="button" class="btn btn-default btn-cancel btn-sm">取消</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="write" style="margin-bottom:60px;">
+
+			<textarea rows="5" cols="60" name="context" id="context"
+				placeholder="写下你的评论..."
+				style="width: 87%; margin-left: 10px; outline: none;"></textarea>
+
+			<input type="submit" value="发布" id="submit"
+				style="margin-left: 20px; border-radius: 5px; color: #ffffff; background-color: #0084ff; height: 40px; width: 50px; border: none; position: absolute; bottom: 10px; right: 10px;">
+
+		</div>
+		 
+	</div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue,
+		PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC,
+		WenQuanYi Micro Hei, sans-serif;
+}
+
+.container {
+	width: 100%;
+	height: auto;
+	background-color: #f6f6f6;
+	min-width:1500px;
+}
+
+.header {
+	width: 100%;
+	height: 50px;
+	background-color: #ffffff;
+}
+
+.header-content {
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	display: flex;
+}
+
+.header-content .logo {
+	width: 100px;
+	height: 100%;
+}
+
+.header-content .logo img, .user {
+	width: 100%;
+	height: 100%;
+}
+
+.header-content .nav {
+	display: flex;
+}
+
+ul {
+	list-style: none;
+	display: flex;
+}
+
+.nav-left {
+	
+}
+
+.nav-left li {
+	text-align: center;
+	line-height: 50px;
+	width: 60px;
+	font-size: 15px;
+	color: #8590a6;
+}
+
+.search-div { 
+ 	margin-left: 60px;
+	margin-top: 7px;
+	border:1px black solid;
+	height:35px;
+	width:300px;
+	background-color: #f9f6f6;
+	border-radius: 4px; 
+	border: 1px solid #ece5e1;
+	
+}
+
+.search {
+	outline: none;
+	border:none;
+	width: 270px;
+	color: #1a1a1a;
+	height: 35px;
+	line-height: 33px;
+	text-align: start;
+	
+	background-color: #f9f6f6;
+	
+}
+
+.btn-search {
+	right: 0;
+	width: 23px;
+	height: 23px;
+	cursor: pointer;
+	vertical-align: top; 
+	margin-top: 7px;
+}
+
+.user {
+	width: 40px;
+	height: 100%;
+}
+
+.user img {
+	width: 100%;
+	height: 70%;
+}
+
+.nav-right {
+	display: flex;
+	margin-left: 80px;
+	padding-top: 10px;
+}
+
+.nav-right li {
+	text-align: center;
+	width: 50px;
+	height: 25px;
+	line-height: 25px;
+}
+
+.nav-right li img {
+	width: 100%;
+	height: 100%;
+	color: #8590a6;
+}
+
+a {
+	text-decoration: none;
+	color: #8590a6;
+}
+
+.btn-question {
+	line-height: 30px;
+	height: 30px;
+	padding: 3px 10px;
+	margin-top: 7px;
+	margin-left: 10px;
+	font-size: 14px;
+	background-color: #0084ff;
+	border-radius: 5px;
+}
+
+.btn-question a {
+	color: #ffffff;
+}
+
+.main {
+	width: 80%;
+	margin: 10px auto;
+	display: grid;
+	grid-template-columns: 70% 29%;
+	column-gap: 5px;
+}
+
+.main .left {
+	height: auto;
+}
+
+.main .right {
+	
+}
+
+.operator {
+	background-color: white;
+}
+
+.operator .top {
+	display: flex;
+	margin: 0 auto;
+	padding-top: 30px;
+	border-bottom: 1px solid #f6f6f6;
+}
+
+.operator .bottom {
+	display: flex;
+	text-align: center;
+}
+
+.operator .bottom span:first-child {
+	border-right: 1px solid #f6f6f6;
+}
+
+.operator .bottom span {
+	flex: 1;
+	justify-content: space-around;
+	line-height: 50px;
+}
+
+.operator .top li {
+	text-align: center;
+	flex: 1;
+	justify-content: space-around;
+}
+
+.operator .top li img {
+	padding: 8px;
+	width: 25px;
+	border-radius: 50%;
+	height: 25px;
+}
+
+.operator .top li p {
+	font-size: 12px;
+	line-height: 3;
+	text-align: center;
+	color: #444;
+	white-space: nowrap;
+}
+
+.create_center {
+	height: 52px;
+	background-color: white;
+	display: flex;
+	text-align: center;
+	align-items: center;
+	font-size: 14px;
+	line-height: 1.4;
+	padding: 0 15px;
+	color: #7c879e;
+	margin-top: 10px;
+}
+
+.create_center span {
+	right: 10px;
+	font-size: 15px;
+	margin-left: 120px;
+	color: #0084ff;
+}
+
+.create_center img {
+	width: 30px;
+	height: 30px;
+}
+
+.f_type {
+	width: 100%;
+	height: 200px;
+	margin-top: 10px;
+	background-color: white;
+}
+
+.f_type p img {
+	width: 90%;
+	margin: 10px 5%;
+}
+
+.icon {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 5px;
+	row-gap: 10px;
+}
+
+.icon div {
+	text-align: center;
+}
+
+.icon div img {
+	width: 30px;
+	height: 30px;
+}
+
+.user-list {
+	width: 100%;
+	height: auto;
+	display: grid;
+	grid-template-rows: repeat(6, 1fr);
+	row-gap: 5px;
+	margin-top: 10px;
+	background-color: white;
+}
+
+.user-list div {
+	text-align: left;
+	height: 40px;
+}
+
+.user-list div p {
+	padding: 0 15px;
+	height: 30px;
+	line-height: 40px;
+	justify-content: center;
+	align-items: center;
+ 
+	color: #5e687e;
+}
+
+.user-list div p img {
+	margin-right: 8px;
+	width: 25px;
+	height: 25px;
+	vertical-align: middle;
+}
+
+.user-list div p span {
+	margin-top: 5px;
+	margin-left:290px;
+	height: 30px;
+	padding: 0 8px; 
+	right: 10px;
+	background-color: #f6f6f6;
+	color: #8590a6;
+	font-size: 12px;
+}

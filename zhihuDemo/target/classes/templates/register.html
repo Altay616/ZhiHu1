@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="/css/register.css"  rel="stylesheet">
+</head>
+
+<script>
+    $(function () {
+    	var status =[true,true,false]
+        // 验证手机号
+        function isPhoneNo(phone) {
+            var pattern = /^1[34578]\d{9}$/;
+            return pattern.test(phone);
+        }
+        $("#username").on('focus', function () {
+            $("#user").css('visibility', 'hidden');
+        })
+        $("#username").on('blur', function () {
+            var val = document.getElementById("username").value;
+            status[0]=true;
+            if (val == '') {
+                $("#user").css('visibility', 'visible');
+                status[0]=false;
+            }
+        })
+        $("#password").on('focus', function () {
+            $("#pwd").css('visibility', 'hidden');
+            $("#pwderror").css('visibility', 'hidden');
+        })
+        $("#password").on('blur', function () {
+            var val = document.getElementById("password").value;
+            status[1]=true;
+            if (val == '') {
+                $("#pwd").css('visibility', 'visible');
+                status[1]=false;
+            } else if (val.length < 6) {
+                $("#pwderror").css('visibility', 'visible');
+                status[1]=false;
+            }
+        })
+        $("#phone").on('focus', function () {
+            $("#phonenull").css('visibility', 'hidden');
+            $("#phoneformat").css('visibility', 'hidden');
+        	
+        })
+        $("#phone").on('blur', function () {
+            var val = document.getElementById("phone").value;
+            status[2]=true;
+            if (val == '') {
+                $("#phonenull").css('visibility', 'visible');
+                status[2]=false;
+            } else {
+            if (isPhoneNo($.trim($(this).val())) == false) {
+                $("#phoneformat").css('visibility', 'visible');
+                status[2]=false;
+            }else{
+            	// 当用户名 密码 和 电话号码 没有问题的时候  可以登录
+            	if(status[0]&&status[1]&&status[2]){    
+                 	 $(".btn_register").css("background-color","#0084ff");
+                 	 $(".btn_register").removeAttr("disabled"); 
+            	}
+            }
+            }
+        })
+     
+    })
+
+</script>
+<body>
+<div class="container">
+    <div class="logo">
+        <img src="/images/logo.jpg">
+    </div>
+    <div class="login">
+        <div class="form">
+            <form action="/user/doRegister" method="post">
+                <input  type="text" name="username" placeholder="请输入用户名" id="username"><br>
+                <p class="hint" id="user">用户名不能为空</p>
+                <input  type="password" name="password" placeholder="请输入密码(不少于6位数)" id="password"><br>
+                <p  class="hint" id="pwd">密码不能为空</p>
+                <p  class="error" id="pwderror" style="margin-right: 100px;">密码不少于6位</p>
+                <input  type="text" name="phonenumber" placeholder="请输入手机码" id="phone">
+                <p  class="hint" id="phonenull">手机号不能为空</p>
+                <p  class="error" id="phoneformat" style="margin-right: 100px;">手机号格式不正确</p>
+                <input type="submit" disabled="disabled" value="注册" class="btn_register">
+            </form>
+            <p><a href="/">已有账号？去登录</a> </p>
+            <div class="load">
+                <p style="color: grey;font-size: 13px;">未注册手机验证后自动登录，注册即代表同意《知乎协议》《隐私保护指引》</p>
+            </div>
+            <div class="login_bottom">
+                <span style="border-right: 1px solid #e9e2e6">开通机构号</span>
+                <span>下载知乎APP</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
